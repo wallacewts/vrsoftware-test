@@ -7,7 +7,12 @@
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./tools/type-orm.config.ts",
+    "typeorm:generate-migration": "npm run typeorm -- -d ./tools/type-orm.config.ts migration:generate ./tools/migrations/$npm_config_name",
+    "typeorm:create-migration": "npm run typeorm -- migration:create ./tools/migrations/$npm_config_name",
+    "typeorm:revert-migration": "npm run typeorm -- -d ./tools/type-orm.config.ts migration:revert"
   },
   "private": true,
   "dependencies": {
