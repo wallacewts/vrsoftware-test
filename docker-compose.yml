@@ -1,17 +1,30 @@
 version: '3.8'
 
 services:
-  mysql:
+  mysql-admin:
     image: mysql:8.0.31
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${ADMIN_DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${ADMIN_DATABASE_NAME}
     ports:
-      - ${DATABASE_PORT}:3306
+      - ${ADMIN_DATABASE_PORT}:3306
     expose:
       - 3306
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-admin-data:/var/lib/mysql
+
+  mysql-student:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_ROOT_PASSWORD: ${STUDENT_DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${STUDENT_DATABASE_NAME}
+    ports:
+      - ${STUDENT_DATABASE_PORT}:3306
+    expose:
+      - 3306
+    volumes:
+      - mysql-student-data:/var/lib/mysql
 
 volumes:
-  mysql-data:
+  mysql-admin-data:
+  mysql-student-data:
