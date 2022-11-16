@@ -10,12 +10,11 @@ export class CreateCoursesTable1668382768889 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isUnique: true,
             isNullable: false,
-            isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'description',
@@ -45,7 +44,8 @@ export class CreateCoursesTable1668382768889 implements MigrationInterface {
             isNullable: true,
           },
         ],
-      })
+      }),
+      true
     );
   }
 

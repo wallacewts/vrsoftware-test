@@ -10,12 +10,11 @@ export class CreateStudentsTable1668383642633 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isUnique: true,
             isNullable: false,
-            isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'name',
@@ -40,7 +39,8 @@ export class CreateStudentsTable1668383642633 implements MigrationInterface {
             isNullable: true,
           },
         ],
-      })
+      }),
+      true
     );
   }
 

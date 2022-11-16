@@ -31,25 +31,25 @@ export class CreateStudentsCoursesTable1668383761284
         columns: [
           {
             name: 'id',
-            type: 'int',
+            type: 'varchar',
             isPrimary: true,
             isUnique: true,
             isNullable: false,
-            isGenerated: true,
-            generationStrategy: 'increment',
+            generationStrategy: 'uuid',
           },
           {
             name: 'student_id',
-            type: 'int',
+            type: 'varchar',
             isNullable: false,
           },
           {
             name: 'course_id',
-            type: 'int',
+            type: 'varchar',
             isNullable: false,
           },
         ],
-      })
+      }),
+      true
     );
 
     await queryRunner.createForeignKeys(this.#tableName, this.#foreignKeys);
