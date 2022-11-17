@@ -8,8 +8,6 @@ services:
       MYSQL_DATABASE: ${ADMIN_DATABASE_NAME}
     ports:
       - ${ADMIN_DATABASE_PORT}:3306
-    expose:
-      - 3306
     volumes:
       - mysql-admin-data:/var/lib/mysql
 
@@ -20,10 +18,25 @@ services:
       MYSQL_DATABASE: ${STUDENT_DATABASE_NAME}
     ports:
       - ${STUDENT_DATABASE_PORT}:3306
-    expose:
-      - 3306
     volumes:
       - mysql-student-data:/var/lib/mysql
+
+  admin-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin-api
+    environment:
+      ADMIN_DATABASE_HOST: mysql-admin
+      ADMIN_DATABASE_PORT: 3306
+      ADMIN_DATABASE_USERNAME: ${ADMIN_DATABASE_USERNAME}
+      ADMIN_DATABASE_PASSWORD: ${ADMIN_DATABASE_PASSWORD}
+      ADMIN_DATABASE_NAME: ${ADMIN_DATABASE_NAME}
+    ports:
+      - ${ADMIN_API_PORT}:${ADMIN_API_PORT}
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql-admin
 
 volumes:
   mysql-admin-data:
