@@ -4,9 +4,9 @@ import { Course } from '@vrsoftware/entities';
 export class CreateCourseDto extends PartialType(
   OmitType(Course, [
     'id',
-    'createdAt',
-    'deletedAt',
-    'updatedAt',
+    'created_at',
+    'deleted_at',
+    'updated_at',
     'studentCourse',
     'students',
   ])

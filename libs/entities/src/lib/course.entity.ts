@@ -38,21 +38,21 @@ export class Course {
 
   @CreateDateColumn()
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
   @ApiProperty()
-  updatedAt: Date;
+  updated_at: Date;
 
   @DeleteDateColumn()
   @ApiProperty()
-  deletedAt: Date;
+  deleted_at: Date;
 
   @ManyToMany(() => Student, (student) => student.courses)
   students: Student[];
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.course)
-  studentCourse: StudentCourse[];
+  studentCourse: StudentCourse;
 
   constructor() {
     if (!this.id) {

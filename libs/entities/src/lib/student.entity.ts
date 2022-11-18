@@ -44,23 +44,23 @@ export class Student {
 
   @CreateDateColumn()
   @ApiProperty()
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
   @ApiProperty()
-  updatedAt: Date;
+  updated_at: Date;
 
   @DeleteDateColumn()
   @ApiProperty()
-  deletedAt: Date;
+  deleted_at: Date;
 
   @ManyToMany(() => Course, (course) => course.students, {
     cascade: true,
   })
   @JoinTable({
     name: 'students_courses',
-    joinColumns: [{ name: 'studentId' }],
-    inverseJoinColumns: [{ name: 'courseId' }],
+    joinColumns: [{ name: 'student_id' }],
+    inverseJoinColumns: [{ name: 'course_id' }],
   })
   @ApiProperty({
     isArray: true,

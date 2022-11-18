@@ -60,4 +60,33 @@ export class StudentsService {
       );
     }
   }
+
+  async getByName(name: string): Promise<Student> {
+    try {
+      const student = await this.studentsRepository.findOne({
+        relations: {
+          courses: true,
+        },
+        where: {
+          name,
+        },
+      });
+
+      if (!student) {
+        throw new NotFoundException('Estudante não encontrado');
+      }
+
+      return student;
+    } catch (error) {
+      this.#logger.error(error);
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        'Erro ao tentar buscar aluno, por favor tente novamente mais tarde'
+      );
+    }
+  }
 }

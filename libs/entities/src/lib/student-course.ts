@@ -11,13 +11,13 @@ export class StudentCourse {
   @ApiProperty({
     format: 'uuid',
   })
-  studentId: string;
+  student_id: string;
 
   @PrimaryColumn()
   @ApiProperty({
     format: 'uuid',
   })
-  courseId: string;
+  course_id: string;
 
   @ManyToOne(() => Student, (student) => student.studentCourse)
   student: Student;
