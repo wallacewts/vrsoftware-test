@@ -8,4 +8,4 @@ import { CoursesService } from './services/courses/courses.service';
   providers: [CoursesService],
   exports: [TypeOrmModule, CoursesService],
 })
-export class CoursesModule {}
+export class NestCoursesModule {}

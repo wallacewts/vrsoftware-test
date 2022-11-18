@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CoursesModule as SharedCoursesModule } from '@vrsoftware/nest-courses-module';
+import { NestCoursesModule } from '@vrsoftware/nest-courses-module';
 import { CoursesController } from './courses.controller';
 
 @Module({
-  imports: [SharedCoursesModule],
-  exports: [SharedCoursesModule],
+  imports: [NestCoursesModule],
+  exports: [NestCoursesModule],
   controllers: [CoursesController],
 })
 export class CoursesModule {}

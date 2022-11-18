@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { StudentsModule as SharedStudentsModule } from '@vrsoftware/nest-students-module';
+import { NestStudentsModule } from '@vrsoftware/nest-students-module';
 import { StudentsController } from './students.controller';
 
 @Module({
-  imports: [SharedStudentsModule],
-  exports: [SharedStudentsModule],
+  imports: [NestStudentsModule],
+  exports: [NestStudentsModule],
   controllers: [StudentsController],
 })
 export class StudentsModule {}

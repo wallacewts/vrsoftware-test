@@ -8,4 +8,4 @@ import { StudentsService } from './services/students/students.service';
   providers: [StudentsService],
   exports: [StudentsService, TypeOrmModule],
 })
-export class StudentsModule {}
+export class NestStudentsModule {}
