@@ -9,6 +9,7 @@ import * as Joi from 'joi';
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        NODE_ENV: Joi.string().required(),
         ADMIN_API_PORT: Joi.number().required(),
         ADMIN_DATABASE_HOST: Joi.string().required(),
         ADMIN_DATABASE_PORT: Joi.number().required(),
@@ -26,7 +27,7 @@ import * as Joi from 'joi';
       database: process.env.ADMIN_DATABASE_NAME,
       autoLoadEntities: true,
       namingStrategy: new SnakeNamingStrategy(),
-      logging: true,
+      logging: process.env.NODE_ENV === 'development',
     }),
     StudentsModule,
   ],
