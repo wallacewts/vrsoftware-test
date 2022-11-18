@@ -17,7 +17,7 @@ export class CreateCoursesTable1668382768889 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'description',
+            name: 'name',
             type: 'varchar',
             length: '50',
             isNullable: false,

@@ -29,7 +29,7 @@ export class Course {
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(50)
-  description: string;
+  name: string;
 
   @Column()
   @ApiProperty()

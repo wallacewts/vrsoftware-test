@@ -18,6 +18,9 @@
     "paths": {
       "@vrsoftware/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@vrsoftware/entities": ["libs/entities/src/index.ts"],
+      "@vrsoftware/nest-courses-module": [
+        "libs/nest-courses-module/src/index.ts"
+      ],
       "@vrsoftware/nest-students-module": [
         "libs/nest-students-module/src/index.ts"
       ]

@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { StudentsModule } from './students/students.module';
 import * as Joi from 'joi';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import * as Joi from 'joi';
       logging: process.env.NODE_ENV === 'development',
     }),
     StudentsModule,
+    CoursesModule,
   ],
 })
 export class AppModule {}
