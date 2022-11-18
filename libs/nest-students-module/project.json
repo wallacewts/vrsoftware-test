@@ -1,21 +1,21 @@
 {
-  "name": "students",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/students/src",
+  "name": "nest-students-module",
+  "sourceRoot": "libs/nest-students-module/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/students/**/*.ts"]
+        "lintFilePatterns": ["libs/nest-students-module/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/students/jest.config.ts",
+        "jestConfig": "libs/nest-students-module/jest.config.ts",
         "passWithNoTests": true
       }
     }

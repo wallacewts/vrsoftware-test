@@ -1,7 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Student } from '@vrsoftware/entities';
-import { CreateStudentDto, StudentsService } from '@vrsoftware/students';
+import {
+  CreateStudentDto,
+  StudentsService,
+} from '@vrsoftware/nest-students-module';
 
 @ApiTags('Students')
 @Controller('student')
