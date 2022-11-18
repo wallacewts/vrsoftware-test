@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayMinSize,
   IsArray,
@@ -7,16 +7,21 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+
 export class CreateStudentDto {
+  @ApiProperty()
   @IsNotEmpty()
   @IsString()
   @MinLength(2)
   @MaxLength(50)
   name: string;
 
+  @ApiProperty({
+    isArray: true,
+    type: String,
+  })
   @IsNotEmpty()
   @IsArray()
   @ArrayMinSize(1)
-  @Type(() => String)
-  courses: string[];
+  courseIds: string[];
 }

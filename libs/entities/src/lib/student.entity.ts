@@ -8,7 +8,6 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import {
@@ -55,17 +54,17 @@ export class Student {
   @ApiProperty()
   deletedAt: Date;
 
-  @ApiProperty({
-    isArray: true,
-    type: Course,
-  })
   @ManyToMany(() => Course, (course) => course.students, {
     cascade: true,
   })
   @JoinTable({
     name: 'students_courses',
-    joinColumn: { name: 'student_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'course_id', referencedColumnName: 'id' },
+    joinColumns: [{ name: 'studentId' }],
+    inverseJoinColumns: [{ name: 'courseId' }],
+  })
+  @ApiProperty({
+    isArray: true,
+    type: Course,
   })
   @IsNotEmpty()
   @IsArray()
@@ -77,7 +76,7 @@ export class Student {
   courses: Course[];
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
-  studentCourse: StudentCourse;
+  studentCourse: StudentCourse[];
 
   constructor() {
     if (!this.id) {

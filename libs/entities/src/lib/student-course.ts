@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  BeforeInsert,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryColumn,
-} from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
+import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Student } from './student.entity';
 import { Course } from './course.entity';
 
@@ -18,15 +11,9 @@ export class StudentCourse {
   @ApiProperty({
     format: 'uuid',
   })
-  id: string;
-
-  @Column()
-  @ApiProperty({
-    format: 'uuid',
-  })
   studentId: string;
 
-  @Column()
+  @PrimaryColumn()
   @ApiProperty({
     format: 'uuid',
   })
@@ -37,15 +24,4 @@ export class StudentCourse {
 
   @ManyToOne(() => Course, (course) => course.studentCourse)
   course: Course;
-
-  @BeforeInsert()
-  setId() {
-    this.id = uuidv4();
-  }
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidv4();
-    }
-  }
 }

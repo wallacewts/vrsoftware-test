@@ -30,21 +30,15 @@ export class CreateStudentsCoursesTable1668383761284
         name: this.#tableName,
         columns: [
           {
-            name: 'id',
-            type: 'varchar',
-            isPrimary: true,
-            isUnique: true,
-            isNullable: false,
-            generationStrategy: 'uuid',
-          },
-          {
             name: 'student_id',
             type: 'varchar',
+            isPrimary: true,
             isNullable: false,
           },
           {
             name: 'course_id',
             type: 'varchar',
+            isPrimary: true,
             isNullable: false,
           },
         ],

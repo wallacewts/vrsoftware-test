@@ -7,7 +7,6 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
@@ -53,7 +52,7 @@ export class Course {
   students: Student[];
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.course)
-  studentCourse: StudentCourse;
+  studentCourse: StudentCourse[];
 
   constructor() {
     if (!this.id) {

@@ -4,7 +4,7 @@ import { Student } from '@vrsoftware/entities';
 import { CreateStudentDto, StudentsService } from '@vrsoftware/students';
 
 @ApiTags('Students')
-@Controller('students')
+@Controller('student')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
