@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { StudentsModule } from './students/students.module';
 import * as Joi from 'joi';
-
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -26,9 +25,10 @@ import { AppService } from './app.service';
       password: process.env.ADMIN_DATABASE_PASSWORD,
       database: process.env.ADMIN_DATABASE_NAME,
       autoLoadEntities: true,
+      namingStrategy: new SnakeNamingStrategy(),
+      logging: true,
     }),
+    StudentsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

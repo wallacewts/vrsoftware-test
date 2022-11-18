@@ -14,8 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strictPropertyInitialization": false,
     "paths": {
-      "@vrsoftware/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@vrsoftware/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@vrsoftware/entities": ["libs/entities/src/index.ts"],
+      "@vrsoftware/students": ["libs/students/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
