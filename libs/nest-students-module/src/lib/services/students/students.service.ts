@@ -10,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Course, Student } from '@vrsoftware/entities';
 import { In, Repository } from 'typeorm';
 import { CreateStudentDto } from '../../dtos/create-student.dto';
+import { UpdateStudentDto } from '../../dtos/update-student.dto';
 
 @Injectable()
 export class StudentsService {
@@ -57,6 +58,32 @@ export class StudentsService {
 
       throw new InternalServerErrorException(
         'Erro ao tentar cadastrar aluno, por favor tente novamente mais tarde'
+      );
+    }
+  }
+  async update(id: string, { name }: UpdateStudentDto): Promise<Student> {
+    try {
+      let student = await this.studentsRepository.findOneBy({
+        id,
+      });
+
+      if (!student) {
+        throw new NotFoundException('Estudante não encontrado');
+      }
+
+      student.name = name;
+      student = await this.studentsRepository.save(student);
+
+      return student;
+    } catch (error) {
+      this.#logger.error(error);
+
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new InternalServerErrorException(
+        'Erro ao tentar atualizar perfil, por favor tente novamente mais tarde'
       );
     }
   }

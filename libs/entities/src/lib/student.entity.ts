@@ -14,6 +14,7 @@ import {
   ArrayMinSize,
   IsArray,
   IsNotEmpty,
+  IsString,
   IsUUID,
   MaxLength,
   MinLength,
@@ -38,6 +39,7 @@ export class Student {
   @Column()
   @ApiProperty()
   @IsNotEmpty()
+  @IsString()
   @MinLength(2)
   @MaxLength(50)
   name: string;

@@ -38,6 +38,23 @@ services:
     depends_on:
       - mysql-admin
 
+  student-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.student-api
+    environment:
+      STUDENT_DATABASE_HOST: mysql-student
+      STUDENT_DATABASE_PORT: 3306
+      STUDENT_DATABASE_USERNAME: ${STUDENT_DATABASE_USERNAME}
+      STUDENT_DATABASE_PASSWORD: ${STUDENT_DATABASE_PASSWORD}
+      STUDENT_DATABASE_NAME: ${STUDENT_DATABASE_NAME}
+    ports:
+      - ${STUDENT_API_PORT}:${STUDENT_API_PORT}
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql-student
+
 volumes:
   mysql-admin-data:
   mysql-student-data:
