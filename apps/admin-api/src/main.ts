@@ -21,7 +21,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['verbose'],
   });
-  const globalPrefix = 'admin-api';
+  const globalPrefix = process.env.ADMIN_API_GLOBAL_PREFIX;
   const port = process.env.ADMIN_API_PORT || 3333;
 
   app.setGlobalPrefix(globalPrefix);

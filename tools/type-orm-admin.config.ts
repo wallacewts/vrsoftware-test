@@ -17,4 +17,5 @@ export default new DataSource({
   password: configService.get('ADMIN_DATABASE_PASSWORD'),
   database: configService.get('ADMIN_DATABASE_NAME'),
   migrations: [migrationsPath],
+  cache: true,
 });

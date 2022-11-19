@@ -9,6 +9,11 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from '@vrsoftware/entities';
 import { Repository } from 'typeorm';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import { CreateCourseDto } from '../../dtos/create-course.dto';
 
 @Injectable()
@@ -78,6 +83,19 @@ export class CoursesService {
 
       throw new InternalServerErrorException(
         'Erro ao tentar atualizar um curso, por favor tente novamente mais tarde'
+      );
+    }
+  }
+
+  async getAll(
+    paginateOptions: IPaginationOptions
+  ): Promise<Pagination<Course>> {
+    try {
+      return await paginate<Course>(this.coursesRepository, paginateOptions);
+    } catch (error) {
+      this.#logger.error(error);
+      throw new InternalServerErrorException(
+        'Erro ao tentar buscar todos os cursos, por favor tente novamente mais tarde'
       );
     }
   }

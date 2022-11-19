@@ -11,6 +11,7 @@ import { CoursesModule } from './courses/courses.module';
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         NODE_ENV: Joi.string().required(),
+        ADMIN_API_GLOBAL_PREFIX: Joi.string().required(),
         ADMIN_API_PORT: Joi.number().required(),
         ADMIN_DATABASE_HOST: Joi.string().required(),
         ADMIN_DATABASE_PORT: Joi.number().required(),
@@ -18,6 +19,7 @@ import { CoursesModule } from './courses/courses.module';
         ADMIN_DATABASE_PASSWORD: Joi.string().required(),
         ADMIN_DATABASE_NAME: Joi.string().required(),
       }),
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -29,6 +31,7 @@ import { CoursesModule } from './courses/courses.module';
       autoLoadEntities: true,
       namingStrategy: new SnakeNamingStrategy(),
       logging: process.env.NODE_ENV === 'development',
+      cache: true,
     }),
     StudentsModule,
     CoursesModule,
