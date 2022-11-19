@@ -21,6 +21,9 @@
       "@vrsoftware/nest-courses-module": [
         "libs/nest-courses-module/src/index.ts"
       ],
+      "@vrsoftware/nest-custom-decorators": [
+        "libs/nest-custom-decorators/src/index.ts"
+      ],
       "@vrsoftware/nest-students-module": [
         "libs/nest-students-module/src/index.ts"
       ]

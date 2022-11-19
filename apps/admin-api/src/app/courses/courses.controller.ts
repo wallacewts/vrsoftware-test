@@ -1,13 +1,14 @@
 import {
   Body,
+  CacheInterceptor,
+  CacheTTL,
   Controller,
-  DefaultValuePipe,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
@@ -15,15 +16,15 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
-  ApiOkResponse,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { Course, ErrorResponse } from '@vrsoftware/entities';
+import { Course, ErrorResponse, PaginationQuery } from '@vrsoftware/entities';
 import {
   CoursesService,
   CreateCourseDto,
 } from '@vrsoftware/nest-courses-module';
+import { ApiOkResponsePaginated } from '@vrsoftware/nest-custom-decorators';
 import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags('Courses')
@@ -56,24 +57,20 @@ export class CoursesController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30)
   @ApiUnprocessableEntityResponse({ type: ErrorResponse })
   @ApiInternalServerErrorResponse({ type: ErrorResponse })
-  @ApiOkResponse({ type: Pagination<Course> })
+  @ApiOkResponsePaginated(Course)
   getAll(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10
+    @Query() { page, limit }: PaginationQuery
   ): Promise<Pagination<Course>> {
     const globalPrefix = this.configService.get('ADMIN_API_GLOBAL_PREFIX');
-    const twoMinutesInMs = 1000 * 60 * 2;
 
     return this.coursesService.getAll({
       page,
       limit,
       route: `/${globalPrefix}/course`,
-      cacheQueries: {
-        id: 'paginated_courses',
-        milliseconds: twoMinutesInMs,
-      },
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -31,7 +31,9 @@ import { CoursesModule } from './courses/courses.module';
       autoLoadEntities: true,
       namingStrategy: new SnakeNamingStrategy(),
       logging: process.env.NODE_ENV === 'development',
-      cache: true,
+    }),
+    CacheModule.register({
+      isGlobal: true,
     }),
     StudentsModule,
     CoursesModule,

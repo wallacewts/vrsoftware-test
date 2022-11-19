@@ -17,5 +17,4 @@ export default new DataSource({
   password: configService.get('STUDENT_DATABASE_PASSWORD'),
   database: configService.get('STUDENT_DATABASE_NAME'),
   migrations: [migrationsPath],
-  cache: true,
 });

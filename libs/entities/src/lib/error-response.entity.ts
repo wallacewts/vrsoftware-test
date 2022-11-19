@@ -1,10 +1,9 @@
-import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { ErrorObject } from 'ajv';
 
 export class ErrorResponse {
   @ApiProperty()
-  statusCode: HttpStatus;
+  statusCode: number;
   @ApiProperty({
     anyOf: [
       {
