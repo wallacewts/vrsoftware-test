@@ -1,10 +1,10 @@
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import {
   Body,
   CacheInterceptor,
   CacheTTL,
   Controller,
   Get,
-  Inject,
   Param,
   Post,
   Put,
@@ -12,7 +12,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxy } from '@nestjs/microservices';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -35,8 +34,7 @@ export class CoursesController {
   constructor(
     private readonly coursesService: CoursesService,
     private readonly configService: ConfigService,
-    @Inject('STUDENT_API_SERVICE')
-    private readonly studentApiClient: ClientProxy
+    private readonly amqpConnection: AmqpConnection
   ) {}
 
   @Post()
@@ -47,7 +45,7 @@ export class CoursesController {
   async create(@Body() dto: CreateCourseDto): Promise<Course> {
     const course = await this.coursesService.create(dto);
 
-    this.studentApiClient.emit('course_data_changed', course);
+    this.amqpConnection.publish('amq.topic', 'model.course.created', course);
 
     return course;
   }
@@ -63,7 +61,7 @@ export class CoursesController {
   ): Promise<Course> {
     const course = await this.coursesService.update(id, dto);
 
-    this.studentApiClient.emit('course_data_changed', course);
+    this.amqpConnection.publish('amq.topic', 'model.course.updated', course);
 
     return course;
   }

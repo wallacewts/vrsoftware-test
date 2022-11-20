@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Inject, Param, Put } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
@@ -17,8 +17,7 @@ import {
 export class StudentsController {
   constructor(
     private readonly studentsService: StudentsService,
-    @Inject('ADMIN_API_SERVICE')
-    private readonly adminApiClient: ClientProxy
+    private readonly amqpConnection: AmqpConnection
   ) {}
 
   @Put(':id')
@@ -31,7 +30,7 @@ export class StudentsController {
   ): Promise<Student> {
     const student = await this.studentsService.update(id, dto);
 
-    this.adminApiClient.emit('student_data_changed', student);
+    this.amqpConnection.publish('amq.topic', 'model.student.updated', student);
 
     return student;
   }

@@ -1,15 +1,33 @@
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Controller } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
 import { Student } from '@vrsoftware/entities';
 
 import { StudentsService } from '@vrsoftware/nest-students-module';
+import { GetAction } from '@vrsoftware/utils';
+import { ConsumeMessage } from 'amqplib';
 
 @Controller()
 export class SyncStudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
-  @EventPattern('student_data_changed')
-  async syncStudent(student: Student): Promise<void> {
-    await this.studentsService.sync(student);
+  @RabbitSubscribe({
+    exchange: 'amq.topic',
+    routingKey: 'model.student.*',
+    queue: 'micro-student-api/student-sync',
+  })
+  async syncStudent(
+    student: Student,
+    amqpMessage: ConsumeMessage
+  ): Promise<void> {
+    const action = GetAction(amqpMessage.fields.routingKey);
+
+    switch (action) {
+      case 'created':
+        await this.studentsService.sync(student);
+        break;
+      case 'updated':
+        await this.studentsService.sync(student);
+        break;
+    }
   }
 }

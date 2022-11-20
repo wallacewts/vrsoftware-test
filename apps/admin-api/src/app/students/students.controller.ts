@@ -1,5 +1,5 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { Body, Controller, Post } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -18,8 +18,7 @@ import {
 export class StudentsController {
   constructor(
     private readonly studentsService: StudentsService,
-    @Inject('STUDENT_API_SERVICE')
-    private readonly studentApiClient: ClientProxy
+    private readonly amqpConnection: AmqpConnection
   ) {}
 
   @Post()
@@ -30,7 +29,7 @@ export class StudentsController {
   async create(@Body() dto: CreateStudentDto): Promise<Student> {
     const student = await this.studentsService.create(dto);
 
-    this.studentApiClient.emit('student_data_changed', student);
+    this.amqpConnection.publish('amq.topic', 'model.student.created', student);
 
     return student;
   }

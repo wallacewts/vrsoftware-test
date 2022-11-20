@@ -1,6 +1,8 @@
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Controller } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { ConsumeMessage } from 'amqplib';
 import { Course } from '@vrsoftware/entities';
+import { GetAction } from '@vrsoftware/utils';
 
 import { CoursesService } from '@vrsoftware/nest-courses-module';
 
@@ -8,8 +10,21 @@ import { CoursesService } from '@vrsoftware/nest-courses-module';
 export class SyncCoursesController {
   constructor(private readonly coursesService: CoursesService) {}
 
-  @EventPattern('course_data_changed')
-  async syncCourse(course: Course) {
-    await this.coursesService.sync(course);
+  @RabbitSubscribe({
+    exchange: 'amq.topic',
+    routingKey: 'model.course.*',
+    queue: 'micro-student-api/course-sync',
+  })
+  async syncCourse(course: Course, amqpMessage: ConsumeMessage) {
+    const action = GetAction(amqpMessage.fields.routingKey);
+
+    switch (action) {
+      case 'created':
+        await this.coursesService.sync(course);
+        break;
+      case 'updated':
+        await this.coursesService.sync(course);
+        break;
+    }
   }
 }

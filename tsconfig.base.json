@@ -26,7 +26,8 @@
       ],
       "@vrsoftware/nest-students-module": [
         "libs/nest-students-module/src/index.ts"
-      ]
+      ],
+      "@vrsoftware/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

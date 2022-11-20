@@ -1,29 +1,28 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import 'reflect-metadata';
 
 import { AppModule } from './app/app.module';
 
-async function bootstrapMicroservice() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.RMQ,
-      options: {
-        urls: [process.env.RABBIT_MQ_HOST],
-        queue: 'admin_api_queue',
-        queueOptions: {
-          durable: false,
-        },
-      },
-    }
-  );
+// async function bootstrapMicroservice() {
+//   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+//     AppModule,
+//     {
+//       transport: Transport.RMQ,
+//       options: {
+//         urls: [process.env.RABBIT_MQ_HOST],
+//         queue: 'admin_api_queue',
+//         queueOptions: {
+//           durable: false,
+//         },
+//       },
+//     }
+//   );
 
-  await app.listen();
-  Logger.log(`🚀 Admin API Microservice is listening`);
-}
+//   await app.listen();
+//   Logger.log(`🚀 Admin API Microservice is listening`);
+// }
 
 function configSwagger(app, globalPrefix) {
   if (process.env.NODE_ENV === 'development') {
@@ -55,4 +54,4 @@ async function bootstrap() {
 }
 
 bootstrap();
-bootstrapMicroservice();
+// bootstrapMicroservice();
