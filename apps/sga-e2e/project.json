@@ -8,12 +8,12 @@
       "executor": "@nrwl/cypress:cypress",
       "options": {
         "cypressConfig": "apps/sga-e2e/cypress.config.ts",
-        "devServerTarget": "sga:serve:development",
+        "devServerTarget": "admin:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "sga:serve:production"
+          "devServerTarget": "admin:serve:production"
         }
       }
     },
@@ -26,5 +26,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": ["sga"]
+  "implicitDependencies": ["admin"]
 }

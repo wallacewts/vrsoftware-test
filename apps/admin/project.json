@@ -1,22 +1,22 @@
 {
-  "name": "sga",
+  "name": "admin",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/sga/src",
+  "sourceRoot": "apps/admin/src",
   "prefix": "vrsoftware",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/sga",
-        "index": "apps/sga/src/index.html",
-        "main": "apps/sga/src/main.ts",
-        "polyfills": "apps/sga/src/polyfills.ts",
-        "tsConfig": "apps/sga/tsconfig.app.json",
+        "outputPath": "dist/apps/admin",
+        "index": "apps/admin/src/index.html",
+        "main": "apps/admin/src/main.ts",
+        "polyfills": "apps/admin/src/polyfills.ts",
+        "tsConfig": "apps/admin/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/sga/src/favicon.ico", "apps/sga/src/assets"],
-        "styles": ["apps/sga/src/styles.scss"],
+        "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
+        "styles": ["apps/admin/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -35,8 +35,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/sga/src/environments/environment.ts",
-              "with": "apps/sga/src/environments/environment.prod.ts"
+              "replace": "apps/admin/src/environments/environment.ts",
+              "with": "apps/admin/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -56,34 +56,34 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "sga:build:production"
+          "browserTarget": "admin:build:production"
         },
         "development": {
-          "browserTarget": "sga:build:development"
+          "browserTarget": "admin:build:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "proxyConfig": "apps/sga/proxy.conf.json"
+        "proxyConfig": "apps/admin/proxy.conf.json"
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "sga:build"
+        "browserTarget": "admin:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/sga/**/*.ts", "apps/sga/**/*.html"]
+        "lintFilePatterns": ["apps/admin/**/*.ts", "apps/admin/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/sga/jest.config.ts",
+        "jestConfig": "apps/admin/jest.config.ts",
         "passWithNoTests": true
       }
     }
