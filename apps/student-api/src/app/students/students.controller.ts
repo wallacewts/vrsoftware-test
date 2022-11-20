@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Put } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
@@ -14,17 +15,25 @@ import {
 @ApiTags('Students')
 @Controller('student')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(
+    private readonly studentsService: StudentsService,
+    @Inject('ADMIN_API_SERVICE')
+    private readonly adminApiClient: ClientProxy
+  ) {}
 
   @Put(':id')
   @ApiNotFoundResponse({ type: ErrorResponse })
   @ApiInternalServerErrorResponse({ type: ErrorResponse })
   @ApiOkResponse({ type: Student })
-  update(
+  async update(
     @Param('id') id: string,
     @Body() dto: UpdateStudentDto
   ): Promise<Student> {
-    return this.studentsService.update(id, dto);
+    const student = await this.studentsService.update(id, dto);
+
+    this.adminApiClient.emit('student_data_changed', student);
+
+    return student;
   }
 
   @Get(':name')

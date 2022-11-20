@@ -18,6 +18,7 @@ import { CoursesModule } from './courses/courses.module';
         ADMIN_DATABASE_USERNAME: Joi.string().required(),
         ADMIN_DATABASE_PASSWORD: Joi.string().required(),
         ADMIN_DATABASE_NAME: Joi.string().required(),
+        RABBIT_MQ_HOST: Joi.string().required(),
       }),
       isGlobal: true,
     }),

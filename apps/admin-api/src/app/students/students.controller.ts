@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -15,14 +16,22 @@ import {
 @ApiTags('Students')
 @Controller('student')
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(
+    private readonly studentsService: StudentsService,
+    @Inject('STUDENT_API_SERVICE')
+    private readonly studentApiClient: ClientProxy
+  ) {}
 
   @Post()
   @ApiUnprocessableEntityResponse({ type: ErrorResponse })
   @ApiBadRequestResponse({ type: ErrorResponse })
   @ApiInternalServerErrorResponse({ type: ErrorResponse })
   @ApiCreatedResponse({ type: Student })
-  create(@Body() dto: CreateStudentDto): Promise<Student> {
-    return this.studentsService.create(dto);
+  async create(@Body() dto: CreateStudentDto): Promise<Student> {
+    const student = await this.studentsService.create(dto);
+
+    this.studentApiClient.emit('student_data_changed', student);
+
+    return student;
   }
 }

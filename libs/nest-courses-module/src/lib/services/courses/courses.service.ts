@@ -99,4 +99,8 @@ export class CoursesService {
       );
     }
   }
+
+  async sync(course: Course): Promise<void> {
+    await this.coursesRepository.save(course);
+  }
 }

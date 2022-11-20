@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import * as Joi from 'joi';
 import { StudentsModule } from './students/students.module';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { StudentsModule } from './students/students.module';
         STUDENT_DATABASE_USERNAME: Joi.string().required(),
         STUDENT_DATABASE_PASSWORD: Joi.string().required(),
         STUDENT_DATABASE_NAME: Joi.string().required(),
+        RABBIT_MQ_HOST: Joi.string().required(),
       }),
       isGlobal: true,
     }),
@@ -35,6 +37,7 @@ import { StudentsModule } from './students/students.module';
       isGlobal: true,
     }),
     StudentsModule,
+    CoursesModule,
   ],
 })
 export class AppModule {}

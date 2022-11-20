@@ -61,6 +61,7 @@ export class StudentsService {
       );
     }
   }
+
   async update(id: string, { name }: UpdateStudentDto): Promise<Student> {
     try {
       let student = await this.studentsRepository.findOneBy({
@@ -115,5 +116,9 @@ export class StudentsService {
         'Erro ao tentar buscar aluno, por favor tente novamente mais tarde'
       );
     }
+  }
+
+  async sync(student: Student): Promise<void> {
+    await this.studentsRepository.save(student);
   }
 }

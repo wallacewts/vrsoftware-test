@@ -21,6 +21,14 @@ services:
     volumes:
       - mysql-student-data:/var/lib/mysql
 
+  rabbitmq:
+    image: rabbitmq:3.9.25-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq/
+
   admin-api:
     build:
       context: .
@@ -31,12 +39,14 @@ services:
       ADMIN_DATABASE_USERNAME: ${ADMIN_DATABASE_USERNAME}
       ADMIN_DATABASE_PASSWORD: ${ADMIN_DATABASE_PASSWORD}
       ADMIN_DATABASE_NAME: ${ADMIN_DATABASE_NAME}
+      RABBIT_MQ_HOST: amqp://rabbitmq:5672
     ports:
       - ${ADMIN_API_PORT}:${ADMIN_API_PORT}
     volumes:
       - .:/app
     depends_on:
       - mysql-admin
+      - rabbitmq
 
   student-api:
     build:
@@ -48,13 +58,16 @@ services:
       STUDENT_DATABASE_USERNAME: ${STUDENT_DATABASE_USERNAME}
       STUDENT_DATABASE_PASSWORD: ${STUDENT_DATABASE_PASSWORD}
       STUDENT_DATABASE_NAME: ${STUDENT_DATABASE_NAME}
+      RABBIT_MQ_HOST: amqp://rabbitmq:5672
     ports:
       - ${STUDENT_API_PORT}:${STUDENT_API_PORT}
     volumes:
       - .:/app
     depends_on:
       - mysql-student
+      - rabbitmq
 
 volumes:
   mysql-admin-data:
   mysql-student-data:
+  rabbitmq-data:

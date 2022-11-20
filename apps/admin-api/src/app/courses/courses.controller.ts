@@ -4,6 +4,7 @@ import {
   CacheTTL,
   Controller,
   Get,
+  Inject,
   Param,
   Post,
   Put,
@@ -11,6 +12,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { ClientProxy } from '@nestjs/microservices';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -32,7 +34,9 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 export class CoursesController {
   constructor(
     private readonly coursesService: CoursesService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    @Inject('STUDENT_API_SERVICE')
+    private readonly studentApiClient: ClientProxy
   ) {}
 
   @Post()
@@ -40,8 +44,12 @@ export class CoursesController {
   @ApiBadRequestResponse({ type: ErrorResponse })
   @ApiInternalServerErrorResponse({ type: ErrorResponse })
   @ApiCreatedResponse({ type: Course })
-  create(@Body() dto: CreateCourseDto): Promise<Course> {
-    return this.coursesService.create(dto);
+  async create(@Body() dto: CreateCourseDto): Promise<Course> {
+    const course = await this.coursesService.create(dto);
+
+    this.studentApiClient.emit('course_data_changed', course);
+
+    return course;
   }
 
   @Put(':id')
@@ -49,11 +57,15 @@ export class CoursesController {
   @ApiNotFoundResponse({ type: ErrorResponse })
   @ApiInternalServerErrorResponse({ type: ErrorResponse })
   @ApiCreatedResponse({ type: Course })
-  update(
+  async update(
     @Param('id') id: string,
     @Body() dto: CreateCourseDto
   ): Promise<Course> {
-    return this.coursesService.update(id, dto);
+    const course = await this.coursesService.update(id, dto);
+
+    this.studentApiClient.emit('course_data_changed', course);
+
+    return course;
   }
 
   @Get()
