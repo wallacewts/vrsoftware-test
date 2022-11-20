@@ -1,6 +1,6 @@
 {
-  "/api": {
-    "target": "http://localhost:3333",
+  "/admin-api": {
+    "target": "http://admin-api:3337",
     "secure": false
   }
 }

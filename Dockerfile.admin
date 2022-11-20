@@ -1,0 +1,7 @@
+FROM node:18.12.1-alpine3.16
+
+WORKDIR /app
+
+CMD npx ng serve admin --host 0.0.0.0
+
+EXPOSE 4200

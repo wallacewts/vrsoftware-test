@@ -67,6 +67,17 @@ services:
       - mysql-student
       - rabbitmq
 
+  admin:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    ports:
+      - 4200:4200
+    volumes:
+      - .:/app
+    depends_on:
+      - admin-api
+
 volumes:
   mysql-admin-data:
   mysql-student-data:

@@ -1,9 +1,24 @@
-<div style="text-align: center">
-  <h1>Welcome to sga!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-    alt="Nx - Smart, Fast and Extensible Build System"
-  />
+<div class="grid">
+  <nav>
+    <div class="info-group">
+      <mat-icon>admin_panel_settings</mat-icon>
+      <h2>Sistema Administrativo</h2>
+    </div>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Cadastros</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-nav-list>
+        <a matListItemTitle routerLink="/cursos">
+          <mat-list-item>Cursos</mat-list-item>
+        </a>
+        <a matListItemTitle routerLink="/alunos">
+          <mat-list-item> Alunos </mat-list-item>
+        </a>
+      </mat-nav-list>
+    </mat-expansion-panel>
+  </nav>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
