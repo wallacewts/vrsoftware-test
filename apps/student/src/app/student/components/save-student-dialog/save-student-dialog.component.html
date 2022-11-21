@@ -1,0 +1,104 @@
+<h1>Atualizar Perfil</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput required id="name" name="name" formControlName="name" />
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['required']
+        "
+      >
+        Campo obrigatório
+      </mat-error>
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['minlength']
+        "
+      >
+        Mínimo de 3 caracteres
+      </mat-error>
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['maxlength']
+        "
+      >
+        Máximo de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <ng-container
+    *ngIf="
+      paginatedCourses$ | async as paginatedCourses;
+      else loadingOrErrorCourses
+    "
+  >
+    <div class="courses">
+      <mat-checkbox
+        *ngFor="let course of paginatedCourses.items; let i"
+        [value]="course.id"
+        (change)="onCheckboxChange($event)"
+        [checked]="!!courseIdControlById(course.id)"
+        >{{ course.name }}</mat-checkbox
+      >
+    </div>
+    <p
+      class="error"
+      *ngIf="
+        (formControls['courseIds'].touched || submitted) &&
+        formControls['courseIds'].errors &&
+        formControls['courseIds'].errors['required']
+      "
+    >
+      Pelo menos um curso deve ser selecionado!
+    </p>
+    <mat-paginator
+      #paginator
+      (page)="handlePageEvent($event)"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="paginatedCourses.meta.totalItems"
+      [pageIndex]="paginatedCourses.meta.currentPage - 1"
+      [pageSize]="paginatedCourses.meta.itemsPerPage"
+      [hidePageSize]="true"
+    >
+    </mat-paginator>
+  </ng-container>
+  <ng-template #loadingOrErrorCourses>
+    <ng-container *ngIf="coursesRequestError; else loading">
+      <vrsoftware-error title="Houve um erro ao tentar obter os cursos">
+      </vrsoftware-error>
+    </ng-container>
+    <ng-template #loading>
+      <div class="spinner">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
+    </ng-template>
+  </ng-template>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="isLoading$ | async"
+  >
+    Salvar
+  </button>
+  <button mat-flat-button color="accent" type="reset">Limpar</button>
+  <ng-container *ngIf="request$ | async as request; else loadingOrError">
+    <p>Aluno Salvo!</p>
+  </ng-container>
+  <ng-template #loadingOrError>
+    <ng-container *ngIf="isLoading$ | async; else error">
+      <p>Carregando...</p>
+    </ng-container>
+  </ng-template>
+  <ng-template #error>
+    <p *ngIf="requestError" class="error">{{ requestError.error.message }}!</p>
+  </ng-template>
+</form>

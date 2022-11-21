@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+@import 'variables';
+
+.error {
+  padding-bottom: 1rem;
+  text-align: center;
+
+  &__title {
+    margin: 2.25rem 0 0;
+  }
+
+  &__message {
+    margin-top: 2rem;
+  }
+
+  &__icon {
+    width: 4.625rem;
+    height: 4.625rem;
+    font-size: 4.625em;
+    color: mat.get-color-from-palette($primary);
+  }
+
+  &__action-button {
+    margin-top: 4rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+}

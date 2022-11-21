@@ -15,7 +15,6 @@ import { ApiOkResponsePaginated } from '@vrsoftware/nest-custom-decorators';
 import {
   CreateStudentDto,
   StudentsService,
-  UpdateStudentDto,
 } from '@vrsoftware/nest-students-module';
 
 @ApiTags('Students')
@@ -54,7 +53,7 @@ export class StudentsController {
   @ApiOkResponse({ type: Student })
   async update(
     @Param('id') id: string,
-    @Body() dto: UpdateStudentDto
+    @Body() dto: CreateStudentDto
   ): Promise<Student> {
     const student = await this.studentsService.update(id, dto);
 

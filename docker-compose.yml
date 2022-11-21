@@ -78,6 +78,17 @@ services:
     depends_on:
       - admin-api
 
+  student:
+    build:
+      context: .
+      dockerfile: Dockerfile.student
+    ports:
+      - 4201:4201
+    volumes:
+      - .:/app
+    depends_on:
+      - student-api
+
 volumes:
   mysql-admin-data:
   mysql-student-data:

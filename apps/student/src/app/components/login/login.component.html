@@ -1,0 +1,41 @@
+<mat-card>
+  <h1>Login</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput required id="name" name="name" formControlName="name" />
+        <mat-error
+          *ngIf="
+            (formControls['name'].touched || submitted) &&
+            formControls['name'].errors &&
+            formControls['name'].errors['required']
+          "
+        >
+          Campo obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="isLoading$ | async"
+    >
+      Entrar
+    </button>
+    <ng-container *ngIf="request$ | async as request; else loadingOrError">
+      <p>Autenticado!</p>
+    </ng-container>
+    <ng-template #loadingOrError>
+      <ng-container *ngIf="isLoading$ | async; else error">
+        <p>Carregando...</p>
+      </ng-container>
+    </ng-template>
+    <ng-template #error>
+      <p *ngIf="requestError" class="error">
+        {{ requestError.error.message }}!
+      </p>
+    </ng-template>
+  </form>
+</mat-card>

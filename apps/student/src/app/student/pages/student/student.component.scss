@@ -1,0 +1,40 @@
+.container {
+  max-width: 45rem;
+  margin: 2rem auto;
+
+  .students {
+    mat-card {
+      & + mat-card {
+        margin-top: 1rem;
+      }
+    }
+
+    mat-paginator {
+      margin-top: 1rem;
+      background-color: transparent;
+    }
+
+    button {
+      position: absolute;
+      right: 3rem;
+      z-index: 999;
+    }
+
+    &__title {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  vrsoftware-error {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .spinner {
+    display: flex;
+    justify-content: center;
+    margin-top: 5rem;
+  }
+}

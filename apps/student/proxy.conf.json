@@ -1,0 +1,6 @@
+{
+  "/student-api": {
+    "target": "http://student-api:3333",
+    "secure": false
+  }
+}

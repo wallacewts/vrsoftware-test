@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { NestCoursesModule } from '@vrsoftware/nest-courses-module';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { SyncCoursesController } from './sync-courses.controller';
+import { CoursesController } from './courses.controller';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { SyncCoursesController } from './sync-courses.controller';
     NestCoursesModule,
   ],
   exports: [NestCoursesModule],
-  controllers: [SyncCoursesController],
+  controllers: [SyncCoursesController, CoursesController],
 })
 export class CoursesModule {}

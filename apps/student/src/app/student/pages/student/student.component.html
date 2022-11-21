@@ -1,0 +1,21 @@
+<div class="container">
+  <vrsoftware-title
+    icon="description"
+    title="Meus cursos"
+    actionIcon="person"
+    (saveItem)="openDialog()"
+  ></vrsoftware-title>
+
+  <ng-container *ngIf="student$ | async as student">
+    <div class="students">
+      <mat-card *ngFor="let course of student.courses">
+        <mat-card-content>
+          <div class="students__title">
+            <h2>{{ course.name }}</h2>
+            <p>{{ course.syllabus }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

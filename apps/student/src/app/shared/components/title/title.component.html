@@ -1,0 +1,14 @@
+<div class="title">
+  <div class="title__text">
+    <mat-icon>{{ icon }}</mat-icon>
+    <h1>{{ title }}</h1>
+  </div>
+  <button
+    mat-fab
+    color="primary"
+    aria-label="Cadastrar novo curso"
+    (click)="handleClick()"
+  >
+    <mat-icon>{{ actionIcon ? actionIcon : 'add' }}</mat-icon>
+  </button>
+</div>
