@@ -11,6 +11,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ErrorComponent } from './components/error/error.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TitleComponent, ErrorComponent],
@@ -25,6 +28,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   exports: [
     HttpClientModule,
@@ -39,6 +45,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     ErrorComponent,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}

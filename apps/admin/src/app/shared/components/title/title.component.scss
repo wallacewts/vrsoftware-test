@@ -4,16 +4,23 @@
 
 .title {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 
-  mat-icon {
-    height: 2rem;
-    width: 2rem;
-    font-size: 2em;
-    color: mat.get-color-from-palette($accent);
-  }
+  &__text {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      height: 2rem;
+      width: 2rem;
+      font-size: 2em;
+      color: mat.get-color-from-palette($accent);
+    }
 
-  h1 {
-    font-weight: bold;
-    color: mat.get-color-from-palette($primary);
+    h1 {
+      margin: 0;
+      font-weight: bold;
+      color: mat.get-color-from-palette($primary);
+    }
   }
 }

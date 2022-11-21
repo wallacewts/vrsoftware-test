@@ -2,8 +2,10 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ICourse, IPagination } from '@vrsoftware/entities';
+import { MatDialog } from '@angular/material/dialog';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { CourseService } from '../../services/course.service';
+import { SaveCourseDialogComponent } from '../../components/save-course-dialog/save-course-dialog.component';
 
 @Component({
   selector: 'vrsoftware-course',
@@ -17,7 +19,8 @@ export class CourseComponent implements OnInit {
 
   constructor(
     private readonly courseService: CourseService,
-    private locationService: Location
+    private locationService: Location,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +35,10 @@ export class CourseComponent implements OnInit {
 
   goBack(): void {
     this.locationService.back();
+  }
+
+  openDialog(): void {
+    this.dialog.open(SaveCourseDialogComponent);
   }
 
   #loadCourses(pageNumber?: number, pageSize?: number) {

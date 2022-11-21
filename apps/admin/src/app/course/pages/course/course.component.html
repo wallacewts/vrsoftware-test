@@ -1,4 +1,8 @@
-<vrsoftware-title icon="description" title="Cursos"></vrsoftware-title>
+<vrsoftware-title
+  icon="description"
+  title="Cursos"
+  (saveItem)="openDialog()"
+></vrsoftware-title>
 
 <ng-container
   *ngIf="paginatedCourses$ | async as paginatedCourses; else loadingOrError"

@@ -1,0 +1,19 @@
+@use '@angular/material' as mat;
+
+@import 'variables';
+
+h1 {
+  color: mat.get-color-from-palette($primary);
+}
+
+form {
+  width: 25rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button + button {
+    margin-left: 1rem;
+  }
+}

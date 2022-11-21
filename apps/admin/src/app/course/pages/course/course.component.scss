@@ -9,6 +9,12 @@
     margin-top: 1rem;
     background-color: transparent;
   }
+
+  button {
+    position: absolute;
+    right: 3rem;
+    z-index: 999;
+  }
 }
 
 vrsoftware-error {

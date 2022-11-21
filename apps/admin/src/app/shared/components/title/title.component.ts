@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'vrsoftware-title',
@@ -8,4 +8,9 @@ import { Component, Input } from '@angular/core';
 export class TitleComponent {
   @Input() icon: string;
   @Input() title: string;
+  @Output() saveItem = new EventEmitter();
+
+  handleClick() {
+    this.saveItem.emit();
+  }
 }
