@@ -1,0 +1,12 @@
+mat-card {
+  & + mat-card {
+    margin-top: 1rem;
+  }
+}
+
+mat-paginator {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: transparent;
+}

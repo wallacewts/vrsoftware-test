@@ -13,11 +13,12 @@ import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 import { v4 as uuidv4 } from 'uuid';
 import { Student } from './student.entity';
 import { StudentCourse } from './student-course';
+import { ICourse } from './course.interface';
 
 @Entity({
   name: 'courses',
 })
-export class Course {
+export class Course implements ICourse {
   @PrimaryColumn()
   @ApiProperty({
     format: 'uuid',

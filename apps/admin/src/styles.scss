@@ -1,10 +1,25 @@
-@import '@angular/material/theming';
+@use '@angular/material' as mat;
+@import 'variables';
 
-$primaryPalette: mat-palette($mat-indigo);
+@include mat.core();
+
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($theme);
+
+@include mat.typography-hierarchy($theme);
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -16,8 +31,8 @@ body {
 
 vrsoftware-root {
   nav {
-    background-color: mat-color($primaryPalette);
-    color: white;
+    background-color: mat.get-color-from-palette($primary);
+    color: mat.get-color-from-palette($primary, 'darker-contrast');
 
     mat-expansion-panel,
     mat-expansion-panel:hover,
@@ -28,15 +43,15 @@ vrsoftware-root {
     .mat-expanded,
     .mat-expansion-panel-content,
     .mat-expansion-panel-body {
-      background-color: mat-color($primaryPalette);
+      background-color: mat.get-color-from-palette($primary);
       border-radius: 0px;
       box-shadow: none;
-      color: white;
+      color: mat.get-color-from-palette($primary, 'darker-contrast');
     }
     a,
     .mat-expansion-indicator::after,
     .mat-list-item-content {
-      color: white;
+      color: mat.get-color-from-palette($primary, 'darker-contrast');
     }
   }
 }

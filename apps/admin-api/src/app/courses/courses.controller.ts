@@ -20,13 +20,18 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { Course, ErrorResponse, PaginationQuery } from '@vrsoftware/entities';
+import {
+  Course,
+  ErrorResponse,
+  ICourse,
+  IPagination,
+  PaginationQuery,
+} from '@vrsoftware/entities';
 import {
   CoursesService,
   CreateCourseDto,
 } from '@vrsoftware/nest-courses-module';
 import { ApiOkResponsePaginated } from '@vrsoftware/nest-custom-decorators';
-import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags('Courses')
 @Controller('course')
@@ -74,7 +79,7 @@ export class CoursesController {
   @ApiOkResponsePaginated(Course)
   getAll(
     @Query() { page, limit }: PaginationQuery
-  ): Promise<Pagination<Course>> {
+  ): Promise<IPagination<ICourse>> {
     const globalPrefix = this.configService.get('ADMIN_API_GLOBAL_PREFIX');
 
     return this.coursesService.getAll({

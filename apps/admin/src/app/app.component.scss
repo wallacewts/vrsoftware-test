@@ -1,17 +1,12 @@
 .grid {
   display: grid;
-  grid-template-areas:
-    'nav main'
-    'nav main'
-    'nav main';
-  grid-template-rows: 5rem 1fr 1fr;
+  justify-content: flex-start;
+  grid-template-areas: 'nav main';
   grid-template-columns: 0.3fr 1fr;
-  height: 100%;
+  min-height: 100vh;
 
   nav {
-    grid-area: nav;
     padding: 1rem;
-
     .info-group {
       display: flex;
       flex-direction: column;
@@ -27,7 +22,8 @@
   }
 
   main {
-    grid-area: main;
+    flex: 1;
     background-color: #f2f5fa;
+    padding: 2rem;
   }
 }

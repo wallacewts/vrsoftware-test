@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IPagination } from './pagination.interface';
 
 class Meta {
   @ApiProperty()
@@ -39,7 +40,7 @@ class Links {
   last: string;
 }
 
-export class Pagination<Item> {
+export class Pagination<Item> implements IPagination<Item> {
   items: Item[];
 
   @ApiProperty({

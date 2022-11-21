@@ -1,1 +1,38 @@
-<p>course works!</p>
+<vrsoftware-title icon="description" title="Cursos"></vrsoftware-title>
+
+<ng-container
+  *ngIf="paginatedCourses$ | async as paginatedCourses; else loadingOrError"
+>
+  <div class="courses">
+    <mat-card *ngFor="let course of paginatedCourses.items">
+      <mat-card-content>
+        <h2>{{ course.name }}</h2>
+        <p>
+          {{ course.syllabus }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-paginator
+    #paginator
+    (page)="handlePageEvent($event)"
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+  >
+  </mat-paginator>
+</ng-container>
+<ng-template #loadingOrError>
+  <ng-container *ngIf="requestError; else loading">
+    <vrsoftware-error
+      title="Houve um erro ao tentar obter o plano de investimento"
+      buttonText="Voltar"
+      (buttonClick)="goBack()"
+    >
+    </vrsoftware-error>
+  </ng-container>
+  <ng-template #loading>
+    <div class="spinner">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </ng-template>
+</ng-template>

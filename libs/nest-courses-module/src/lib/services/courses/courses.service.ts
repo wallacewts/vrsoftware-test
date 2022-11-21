@@ -7,13 +7,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Course } from '@vrsoftware/entities';
+import { Course, ICourse, IPagination } from '@vrsoftware/entities';
 import { Repository } from 'typeorm';
-import {
-  IPaginationOptions,
-  paginate,
-  Pagination,
-} from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, paginate } from 'nestjs-typeorm-paginate';
 import { CreateCourseDto } from '../../dtos/create-course.dto';
 
 @Injectable()
@@ -89,7 +85,7 @@ export class CoursesService {
 
   async getAll(
     paginateOptions: IPaginationOptions
-  ): Promise<Pagination<Course>> {
+  ): Promise<IPagination<ICourse>> {
     try {
       return await paginate<Course>(this.coursesRepository, paginateOptions);
     } catch (error) {
