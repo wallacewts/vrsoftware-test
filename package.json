@@ -12,7 +12,7 @@
     "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./tools/$CONFIG_FILE",
     "typeorm:create-migration": "npm run typeorm -- migration:create ./tools/migrations/$npm_config_name",
     "typeorm:revert-migration": "npm run typeorm -- -d ./tools/$CONFIG_FILE migration:revert",
-    "typeorm:seed": "node ./tools/seeds/admin-data.js"
+    "seed": "node ./tools/seeds/admin-data.js"
   },
   "private": true,
   "dependencies": {
