@@ -12,19 +12,22 @@
         </p>
       </mat-card-content>
     </mat-card>
+    <mat-paginator
+      #paginator
+      (page)="handlePageEvent($event)"
+      showFirstLastButtons
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="paginatedCourses.meta.totalItems"
+      [pageIndex]="paginatedCourses.meta.currentPage - 1"
+      [pageSize]="paginatedCourses.meta.itemCount"
+    >
+    </mat-paginator>
   </div>
-  <mat-paginator
-    #paginator
-    (page)="handlePageEvent($event)"
-    showFirstLastButtons
-    [pageSizeOptions]="pageSizeOptions"
-  >
-  </mat-paginator>
 </ng-container>
 <ng-template #loadingOrError>
   <ng-container *ngIf="requestError; else loading">
     <vrsoftware-error
-      title="Houve um erro ao tentar obter o plano de investimento"
+      title="Houve um erro ao tentar obter os cursos"
       buttonText="Voltar"
       (buttonClick)="goBack()"
     >

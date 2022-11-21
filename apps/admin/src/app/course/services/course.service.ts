@@ -9,7 +9,15 @@ import { Observable } from 'rxjs';
 export class CourseService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  get(): Observable<IPagination<ICourse>> {
-    return this.httpClient.get<IPagination<ICourse>>('/admin-api/course');
+  get(
+    pageNumber?: number,
+    pageSize?: number
+  ): Observable<IPagination<ICourse>> {
+    const url =
+      pageNumber && pageSize
+        ? `/admin-api/course?page=${pageNumber}&limit=${pageSize}`
+        : '/admin-api/course';
+
+    return this.httpClient.get<IPagination<ICourse>>(url);
   }
 }

@@ -1,12 +1,24 @@
-mat-card {
-  & + mat-card {
+.courses {
+  mat-card {
+    & + mat-card {
+      margin-top: 1rem;
+    }
+  }
+
+  mat-paginator {
     margin-top: 1rem;
+    background-color: transparent;
   }
 }
 
-mat-paginator {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  background-color: transparent;
+vrsoftware-error {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
 }
