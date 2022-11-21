@@ -87,10 +87,7 @@ export class CoursesService {
     paginateOptions: IPaginationOptions
   ): Promise<IPagination<ICourse>> {
     try {
-      const queryBuilder = this.coursesRepository.createQueryBuilder('c');
-      queryBuilder.orderBy('c.updated_at', 'DESC');
-
-      return await paginate<Course>(queryBuilder, paginateOptions);
+      return await paginate<Course>(this.coursesRepository, paginateOptions);
     } catch (error) {
       this.#logger.error(error);
       throw new InternalServerErrorException(

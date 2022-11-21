@@ -34,9 +34,7 @@ export class StudentComponent implements OnInit {
       data: student,
     });
     dialog.afterClosed().subscribe((saved) => {
-      if (saved) {
-        this.#loadStudents();
-      }
+      this.#loadStudents();
     });
   }
 

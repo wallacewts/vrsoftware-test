@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [TitleComponent, ErrorComponent],
@@ -35,6 +36,7 @@ import { MatChipsModule } from '@angular/material/chips';
     ReactiveFormsModule,
     MatMenuModule,
     MatChipsModule,
+    MatCheckboxModule,
   ],
   exports: [
     HttpClientModule,
@@ -54,6 +56,7 @@ import { MatChipsModule } from '@angular/material/chips';
     ReactiveFormsModule,
     MatMenuModule,
     MatChipsModule,
+    MatCheckboxModule,
   ],
 })
 export class SharedModule {}

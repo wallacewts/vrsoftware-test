@@ -10,7 +10,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Course, IStudent, Student } from '@vrsoftware/entities';
 import { In, Repository } from 'typeorm';
 import { CreateStudentDto } from '../../dtos/create-student.dto';
-import { UpdateStudentDto } from '../../dtos/update-student.dto';
 
 @Injectable()
 export class StudentsService {
@@ -62,7 +61,10 @@ export class StudentsService {
     }
   }
 
-  async update(id: string, { name }: UpdateStudentDto): Promise<Student> {
+  async update(
+    id: string,
+    { name, courseIds }: CreateStudentDto
+  ): Promise<Student> {
     try {
       let student = await this.studentsRepository.findOneBy({
         id,
@@ -72,7 +74,12 @@ export class StudentsService {
         throw new NotFoundException('Estudante não encontrado');
       }
 
+      const courses = await this.coursesRepository.findBy({
+        id: In(courseIds),
+      });
+
       student.name = name;
+      student.courses = courses;
       student = await this.studentsRepository.save(student);
 
       return student;

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ICourse, IPagination } from '@vrsoftware/entities';
 import { MatDialog } from '@angular/material/dialog';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { CourseService } from '../../services/course.service';
 import { SaveCourseDialogComponent } from '../../components/save-course-dialog/save-course-dialog.component';
 
@@ -43,18 +43,13 @@ export class CourseComponent implements OnInit {
     const dialog = this.dialog.open(SaveCourseDialogComponent, {
       data: course,
     });
-    dialog.afterClosed().subscribe((saved) => {
-      if (saved) {
-        this.#loadCourses(0, this.currentPageSize);
-      }
+    dialog.afterClosed().subscribe(() => {
+      this.#loadCourses(0, this.currentPageSize);
     });
   }
 
   #loadCourses(pageNumber?: number, pageSize?: number) {
     this.paginatedCourses$ = this.courseService.get(pageNumber, pageSize).pipe(
-      tap((data) => {
-        data.meta.itemCount;
-      }),
       catchError((error) => {
         this.requestError = error;
         return throwError(() => error);

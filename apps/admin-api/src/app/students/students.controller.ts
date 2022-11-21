@@ -1,10 +1,12 @@
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -13,6 +15,7 @@ import { ApiOkResponsePaginated } from '@vrsoftware/nest-custom-decorators';
 import {
   CreateStudentDto,
   StudentsService,
+  UpdateStudentDto,
 } from '@vrsoftware/nest-students-module';
 
 @ApiTags('Students')
@@ -43,5 +46,20 @@ export class StudentsController {
   @ApiOkResponsePaginated(Student)
   getAll(): Promise<IStudent[]> {
     return this.studentsService.getAll();
+  }
+
+  @Put(':id')
+  @ApiNotFoundResponse({ type: ErrorResponse })
+  @ApiInternalServerErrorResponse({ type: ErrorResponse })
+  @ApiOkResponse({ type: Student })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateStudentDto
+  ): Promise<Student> {
+    const student = await this.studentsService.update(id, dto);
+
+    this.amqpConnection.publish('amq.topic', 'model.student.updated', student);
+
+    return student;
   }
 }
