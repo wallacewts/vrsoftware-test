@@ -16,6 +16,7 @@ export class CourseComponent implements OnInit {
   pageSizeOptions = [5, 10, 25, 50];
   paginatedCourses$: Observable<IPagination<ICourse>>;
   requestError: any;
+  currentPageSize: number;
 
   constructor(
     private readonly courseService: CourseService,
@@ -28,6 +29,7 @@ export class CourseComponent implements OnInit {
   }
 
   handlePageEvent({ pageSize, pageIndex }: PageEvent) {
+    this.currentPageSize = pageSize;
     const pageNumber = pageIndex + 1;
 
     this.#loadCourses(pageNumber, pageSize);
@@ -38,7 +40,11 @@ export class CourseComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(SaveCourseDialogComponent);
+    const dialog = this.dialog.open(SaveCourseDialogComponent);
+
+    dialog.afterClosed().subscribe(() => {
+      this.#loadCourses(0, this.currentPageSize);
+    });
   }
 
   #loadCourses(pageNumber?: number, pageSize?: number) {

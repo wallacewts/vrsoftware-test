@@ -20,4 +20,14 @@ export class CourseService {
 
     return this.httpClient.get<IPagination<ICourse>>(url);
   }
+
+  post(course: ICourse): Observable<ICourse> {
+    return this.httpClient.post<ICourse>('/admin-api/course', course);
+  }
+
+  put(course: ICourse) {
+    const url = `/admin-api/course/${course.id}`;
+
+    return this.httpClient.put<ICourse>(url, course);
+  }
 }
