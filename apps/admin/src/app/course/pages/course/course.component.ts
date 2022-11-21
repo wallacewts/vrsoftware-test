@@ -39,11 +39,14 @@ export class CourseComponent implements OnInit {
     this.locationService.back();
   }
 
-  openDialog(): void {
-    const dialog = this.dialog.open(SaveCourseDialogComponent);
-
-    dialog.afterClosed().subscribe(() => {
-      this.#loadCourses(0, this.currentPageSize);
+  openDialog(course?: ICourse): void {
+    const dialog = this.dialog.open(SaveCourseDialogComponent, {
+      data: course,
+    });
+    dialog.afterClosed().subscribe((saved) => {
+      if (saved) {
+        this.#loadCourses(0, this.currentPageSize);
+      }
     });
   }
 

@@ -15,6 +15,11 @@
     right: 3rem;
     z-index: 999;
   }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 vrsoftware-error {

@@ -66,7 +66,7 @@
   </button>
   <button mat-flat-button color="accent" type="reset">Limpar</button>
   <ng-container *ngIf="request$ | async as request; else loadingOrError">
-    <p>Cadastrado!</p>
+    <p>Curso Salvo!</p>
   </ng-container>
   <ng-template #loadingOrError>
     <ng-container *ngIf="isLoading$ | async; else error">

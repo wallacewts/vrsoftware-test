@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [TitleComponent, ErrorComponent],
@@ -31,6 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatMenuModule,
   ],
   exports: [
     HttpClientModule,
@@ -48,6 +50,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatMenuModule,
   ],
 })
 export class SharedModule {}

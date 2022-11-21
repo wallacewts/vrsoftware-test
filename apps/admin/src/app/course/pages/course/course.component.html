@@ -10,7 +10,22 @@
   <div class="courses">
     <mat-card *ngFor="let course of paginatedCourses.items">
       <mat-card-content>
-        <h2>{{ course.name }}</h2>
+        <div class="courses__title">
+          <h2>{{ course.name }}</h2>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openDialog(course)">
+              <mat-icon>updated</mat-icon>
+              <span>Atualizar</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Excluir</span>
+            </button>
+          </mat-menu>
+        </div>
         <p>
           {{ course.syllabus }}
         </p>
@@ -23,7 +38,6 @@
       [pageSizeOptions]="pageSizeOptions"
       [length]="paginatedCourses.meta.totalItems"
       [pageIndex]="paginatedCourses.meta.currentPage - 1"
-      [pageSize]="paginatedCourses.meta.itemCount"
     >
     </mat-paginator>
   </div>

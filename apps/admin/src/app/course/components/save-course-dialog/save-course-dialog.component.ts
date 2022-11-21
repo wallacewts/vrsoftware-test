@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CourseService } from '../../services/course.service';
 import { ICourse } from '@vrsoftware/entities';
 import { BehaviorSubject, catchError, finalize, Observable, tap } from 'rxjs';
@@ -26,7 +26,8 @@ export class SaveCourseDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Course,
     private formBuild: FormBuilder,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private dialogRef: MatDialogRef<SaveCourseDialogComponent>
   ) {}
 
   get isLoading$() {
@@ -47,13 +48,20 @@ export class SaveCourseDialogComponent implements OnInit {
     if (this.form.valid) {
       const course = this.form.value as ICourse;
       const createOrUpdate = this.data
-        ? this.courseService.put(course)
+        ? this.courseService.put({
+            ...this.data,
+            ...course,
+          })
         : this.courseService.post(course);
       this.isLoadingSubject.next(true);
       this.request$ = createOrUpdate.pipe(
         tap({
           complete: () => {
-            this.form.updateValueAndValidity();
+            if (this.data) {
+              this.dialogRef.close(true);
+            } else {
+              this.form.updateValueAndValidity();
+            }
           },
         }),
         catchError((error) => {

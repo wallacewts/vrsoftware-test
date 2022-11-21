@@ -26,6 +26,7 @@ export class CourseService {
   }
 
   put(course: ICourse) {
+    console.log(course);
     const url = `/admin-api/course/${course.id}`;
 
     return this.httpClient.put<ICourse>(url, course);
