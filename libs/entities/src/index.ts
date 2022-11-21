@@ -6,3 +6,4 @@ export * from './lib/pagination-query';
 export * from './lib/pagination';
 export * from './lib/course.interface';
 export * from './lib/pagination.interface';
+export * from './lib/student.interface';

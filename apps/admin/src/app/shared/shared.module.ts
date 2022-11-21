@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [TitleComponent, ErrorComponent],
@@ -33,6 +34,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatChipsModule,
   ],
   exports: [
     HttpClientModule,
@@ -51,6 +53,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatChipsModule,
   ],
 })
 export class SharedModule {}

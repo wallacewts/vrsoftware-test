@@ -7,7 +7,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Course, Student } from '@vrsoftware/entities';
+import { Course, IStudent, Student } from '@vrsoftware/entities';
 import { In, Repository } from 'typeorm';
 import { CreateStudentDto } from '../../dtos/create-student.dto';
 import { UpdateStudentDto } from '../../dtos/update-student.dto';
@@ -120,5 +120,23 @@ export class StudentsService {
 
   async sync(student: Student): Promise<void> {
     await this.studentsRepository.save(student);
+  }
+
+  async getAll(): Promise<IStudent[]> {
+    try {
+      return await this.studentsRepository.find({
+        relations: {
+          courses: true,
+        },
+        order: {
+          updated_at: 'desc',
+        },
+      });
+    } catch (error) {
+      this.#logger.error(error);
+      throw new InternalServerErrorException(
+        'Erro ao tentar buscar todos os estudantes, por favor tente novamente mais tarde'
+      );
+    }
   }
 }

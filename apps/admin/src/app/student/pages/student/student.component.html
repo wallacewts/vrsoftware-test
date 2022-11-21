@@ -1,1 +1,54 @@
-<p>student works!</p>
+<vrsoftware-title
+  icon="description"
+  title="Cursos"
+  (saveItem)="openDialog()"
+></vrsoftware-title>
+
+<ng-container *ngIf="students$ | async as students; else loadingOrError">
+  <div class="students">
+    <mat-card *ngFor="let student of students">
+      <mat-card-content>
+        <div class="students__title">
+          <h2>{{ student.name }}</h2>
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openDialog(student)">
+              <mat-icon>updated</mat-icon>
+              <span>Atualizar</span>
+            </button>
+          </mat-menu>
+        </div>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Cursos</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list>
+            <mat-chip
+              color="accent"
+              selected
+              *ngFor="let course of student.courses"
+              >{{ course.name }}</mat-chip
+            >
+          </mat-chip-list>
+        </mat-expansion-panel>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
+<ng-template #loadingOrError>
+  <ng-container *ngIf="requestError; else loading">
+    <vrsoftware-error
+      title="Houve um erro ao tentar obter os alunos"
+      buttonText="Voltar"
+      (buttonClick)="goBack()"
+    >
+    </vrsoftware-error>
+  </ng-container>
+  <ng-template #loading>
+    <div class="spinner">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </ng-template>
+</ng-template>

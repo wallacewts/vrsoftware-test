@@ -1,0 +1,79 @@
+<h1>Cadastro</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput required id="name" name="name" formControlName="name" />
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['required']
+        "
+      >
+        Campo obrigatório
+      </mat-error>
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['minlength']
+        "
+      >
+        Mínimo de 3 caracteres
+      </mat-error>
+      <mat-error
+        *ngIf="
+          (formControls['name'].touched || submitted) &&
+          formControls['name'].errors &&
+          formControls['name'].errors['maxlength']
+        "
+      >
+        Máximo de 50 caracteres
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Descrição</mat-label>
+      <textarea
+        matInput
+        placeholder="Passo a passo simples e direto a respeito das funcionalidades do Git com exemplos fáceis e eficientes!"
+        rows="10"
+        required
+        id="syllabus"
+        name="syllabus"
+        formControlName="syllabus"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          (formControls['syllabus'].touched || submitted) &&
+          formControls['syllabus'].errors &&
+          formControls['syllabus'].errors['required']
+        "
+      >
+        Campo obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="isLoading$ | async"
+  >
+    Salvar
+  </button>
+  <button mat-flat-button color="accent" type="reset">Limpar</button>
+  <ng-container *ngIf="request$ | async as request; else loadingOrError">
+    <p>Curso Salvo!</p>
+  </ng-container>
+  <ng-template #loadingOrError>
+    <ng-container *ngIf="isLoading$ | async; else error">
+      <p>Carregando...</p>
+    </ng-container>
+  </ng-template>
+  <ng-template #error>
+    <p *ngIf="requestError" class="error">{{ requestError.error.message }}!</p>
+  </ng-template>
+</form>
