@@ -47,10 +47,17 @@ cp .env.example .env
 docker-compose up
 ```
 
-- As vezes as aplicações admin-api e student-api, podem não subir corretamente devido a algum atraso na inicialização do RabbitMQ, então apenas espere um pouco e **execute o seguinte comando em outra aba do terminal**
+OBS: As vezes as aplicações admin-api e student-api podem não subir corretamente devido a algum atraso na inicialização do RabbitMQ, então apenas espere-o iniciar completamente e **execute o seguinte comando em outra aba do terminal**
 
 ```
-docker-compose up -d student-api admin-api
+docker-compose restart student-api admin-api
+```
+
+- Para realizar a criação automática dos dois bancos de dados, utilize os comandos abaixo
+
+```
+CONFIG_FILE=type-orm-student.config.ts npm run typeorm:run-migrations
+CONFIG_FILE=type-orm-admin.config.ts npm run typeorm:run-migrations
 ```
 
 - Após a inicialização das aplicações, execute o script seguinte para realizar chamadas(POST) para ADMIN API e popular o banco de dados
